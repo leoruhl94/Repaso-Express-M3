@@ -9,11 +9,11 @@ describe("model", function () {
   //__________________ section users_____________________
 
   describe("contactList y addContact", function () {
-    it("Inicialmente, `contactList` devuelve un array de contactos vacío", function () {
+    xit("Inicialmente, `contactList` devuelve un array de contactos vacío", function () {
       expect(model.contactList()).toEqual([]);
     });
 
-    it("`addContact` debe agendar los contactos con nombre y telefono", function () {
+    xit("`addContact` debe agendar los contactos con nombre y telefono", function () {
       model.addContact("angelo", 1231231234);
       expect(model.contactList()).toHaveLength(1);
       model.addContact("antonella", 1112345678);
@@ -22,23 +22,23 @@ describe("model", function () {
       expect(model.contactList()[1].telephone).toEqual(1112345678);
     });
 
-    it("cada contacto debe tener inicialmente una propiedad `message` y debe ser un array vacio", function () {
+    xit("cada contacto debe tener inicialmente una propiedad `message` y debe ser un array vacio", function () {
       model.addContact("angelo", 1231231234);
       expect(model.contactList()[0].message).toEqual([]);
     });
 
-    it("ademas debe tener una propiedad status con el valor `active` por defecto", function () {
+    xit("ademas debe tener una propiedad status con el valor `active` por defecto", function () {
       model.addContact("angelo", 1231231234);
       expect(model.contactList()[0].status).toEqual("active");
     });
 
-    it("Si `addContact` recibe un numero que ya esta agendado retorna el contacto existente", function () {
+    xit("Si `addContact` recibe un numero que ya esta agendado retorna el contacto existente", function () {
       model.addContact("angelo", 1231231234);
       expect(model.addContact("antonella", 1231231234).name).toEqual("angelo");
       expect(model.contactList()[0].name).toEqual("angelo");
     });
 
-    it("Si `contactList` recibe un status retorna la lista filtrada (active)", function () {
+    xit("Si `contactList` recibe un status retorna la lista filtrada (active)", function () {
       model.addContact("alessia", 3514545454);
       model.addContact("barbara", 3544466777);
       model.addContact("gabriel", 3515666222);
@@ -47,7 +47,7 @@ describe("model", function () {
       expect(model.contactList("active")[1].name).toEqual("gabriel");
     });
 
-    it("Si contactList recibe un status retorna la lista filtrada (blocked)", function () {
+    xit("Si contactList recibe un status retorna la lista filtrada (blocked)", function () {
       model.addContact("alessia", 3514545454);
       model.addContact("barbara", 3544466777);
       model.addContact("gabriel", 3515666222);
@@ -59,7 +59,7 @@ describe("model", function () {
   });
 
   describe("`searchContact` y `changeStatus`", function () {
-    it("changeStatus cambia el status de un contacto", function () {
+    xit("changeStatus cambia el status de un contacto", function () {
       model.addContact("alessia", 3514545454);
       model.addContact("barbara", 3544466777);
       model.addContact("gabriel", 3515666222);
@@ -72,7 +72,7 @@ describe("model", function () {
       expect(model.contactList()[2].status).toEqual("active");
     });
 
-    it("searchContact recibe un nombre devuelve una lista con todos los contactos que lo contengan", function () {
+    xit("searchContact recibe un nombre devuelve una lista con todos los contactos que lo contengan", function () {
       model.addContact("alessia", 1231231234);
       model.addContact("angelo", 1231231235);
       model.addContact("gabriel", 1231231236);
@@ -82,7 +82,7 @@ describe("model", function () {
       expect(model.searchContact("angelo")[2].telephone).toEqual(1231231238);
     });
 
-    it("si searchContact recibe una fraccion del nombre devuelve una lista con todos los contactos que la incluyen", function () {
+    xit("si searchContact recibe una fraccion del nombre devuelve una lista con todos los contactos que la incluyen", function () {
       model.addContact("alessia", 1231231234);
       model.addContact("amaranto", 1231231235);
       model.addContact("antonella", 1231231236);
@@ -95,7 +95,7 @@ describe("model", function () {
       expect(model.searchContact("anto")[2].name).toEqual("antony");
     });
 
-    it("searchContact encuentra el nombre sin importar si esta en mayusculas o minusculas", function () {
+    xit("searchContact encuentra el nombre sin importar si esta en mayusculas o minusculas", function () {
       model.addContact("Alessia", 1231231234);
       model.addContact("AmaRanTo", 1231231235);
       model.addContact("Antonella", 1231231236);
@@ -108,7 +108,7 @@ describe("model", function () {
       expect(model.searchContact("aNTo")[2].name).toEqual("anTOny");
     });
 
-    it("si searchContact tambien un status devuelve solo los contactos que lo tengan", function () {
+    xit("si searchContact tambien un status devuelve solo los contactos que lo tengan", function () {
       model.addContact("alessia", 1231231234);
       model.addContact("amaranto", 1231231235);
       model.addContact("antonella", 1231231236);
@@ -126,7 +126,7 @@ describe("model", function () {
   });
 
   describe("`deleteContact` y `editContact`", function () {
-    it("deleteContact recibe un numero de telefono y elimina el contacto", function () {
+    xit("deleteContact recibe un numero de telefono y elimina el contacto", function () {
       model.addContact("alessia", 3514545454);
       model.addContact("barbara", 3544466777);
       model.addContact("gabriel", 3515666222);
@@ -139,7 +139,7 @@ describe("model", function () {
       expect(model.contactList()).toHaveLength(0);
     });
 
-    it("deleteContact retorna el contacto que se va a eliminar", function () {
+    xit("deleteContact retorna el contacto que se va a eliminar", function () {
       model.addContact("alessia", 3514545454);
       model.addContact("barbara", 3544466777);
       model.addContact("gabriel", 3515666222);
@@ -148,16 +148,16 @@ describe("model", function () {
       expect(model.deleteContact(3515666222).name).toEqual("gabriel");
     });
 
-    it("si deleteContact no encuentra el contacto a borrar retorna false", function () {
+    xit("si deleteContact no encuentra el contacto a borrar retorna false", function () {
       expect(model.deleteContact(3544466777)).toBe(false);
     });
 
-    it("editContact si no recibe el numero o no existe el contacto retorna false", function () {
+    xit("editContact si no recibe el numero o no existe el contacto retorna false", function () {
       expect(model.editContact({})).toBe(false);
       expect(model.editContact({ phone: 3515151511 })).toBe(false);
     });
 
-    it("editContact debe retornar el usuario correctamente editado", function () {
+    xit("editContact debe retornar el usuario correctamente editado", function () {
       model.addContact("alessia", 1231231234);
       model.addContact("amaranto", 1231231235);
       model.addContact("antonella", 1231231236);
@@ -176,7 +176,7 @@ describe("model", function () {
       expect(model.contactList("active")[1].name).toEqual("antonella");
     });
 
-    it("editContact solo modifica la propiedad que se le pasa", function () {
+    xit("editContact solo modifica la propiedad que se le pasa", function () {
       model.addContact("alessia", 1231231234);
       model.addContact("amaranto", 1231231235);
       model.addContact("antonella", 1231231236);
@@ -193,11 +193,11 @@ describe("model", function () {
   //__________________ section groups_____________________
 
   describe("createGroupId y getGroupIdList", function () {
-    it('debe crear un id con el formato "group_xx" donde "xx" es un numero ', function () {
+    xit('debe crear un id con el formato "group_xx" donde "xx" es un numero ', function () {
       expect(model.createGroupId()).toEqual("group_0");
     });
 
-    it("el id debe ser auto-incremental", function () {
+    xit("el id debe ser auto-incremental", function () {
       expect(model.createGroupId()).toEqual("group_0");
       expect(model.createGroupId()).toEqual("group_1");
       expect(model.createGroupId()).toEqual("group_2");
@@ -206,34 +206,34 @@ describe("model", function () {
   });
 
   describe("groupList y addGroup", function () {
-    it("`groupList` inicialmente retorna un objeto vacio ", function () {
+    xit("`groupList` inicialmente retorna un objeto vacio ", function () {
       expect(model.groupList()).toEqual({});
       expect(model.groupList()).toBeInstanceOf(Object);
     });
 
-    it("addGroup debe retornar el nuevo grupo y debe ser un objeto", function () {
+    xit("addGroup debe retornar el nuevo grupo y debe ser un objeto", function () {
       expect(model.addGroup("Grupo 1")).toBeInstanceOf(Object);
     });
 
-    it('el objeto retornado por addGroup contener la propiedad "groupName" y debe ser un string', function () {
+    xit('el objeto retornado por addGroup contener la propiedad "groupName" y debe ser un string', function () {
       expect(model.addGroup("Grupo 1")).toEqual(
         expect.objectContaining({ groupName: "Grupo 1" })
       );
     });
 
-    it('el objeto retornado por addGroup contener la propiedad "contacts" y debe ser un array', function () {
+    xit('el objeto retornado por addGroup contener la propiedad "contacts" y debe ser un array', function () {
       expect(model.addGroup("Grupo 1")).toEqual(
         expect.objectContaining({ contacts: [] })
       );
     });
 
-    it('el objeto retornado por addGroup contener la propiedad "messages" y debe ser un array', function () {
+    xit('el objeto retornado por addGroup contener la propiedad "messages" y debe ser un array', function () {
       expect(model.addGroup("Grupo 1")).toEqual(
         expect.objectContaining({ messages: [] })
       );
     });
 
-    it(`addGroup debe agregar a la lista de grupos el grupo creado como una propiedad.
+    xit(`addGroup debe agregar a la lista de grupos el grupo creado como una propiedad.
          El nombre de la propiedad debe ser el id generado para ese grupo`, function () {
       model.addGroup("Grupo 1");
       model.addGroup("Grupo 2");
@@ -247,7 +247,7 @@ describe("model", function () {
       );
     });
 
-    it('si groupList recibe "pluckname = true" retorna un array con solo la lista de nombres ', function () {
+    xit('si groupList recibe "pluckname = true" retorna un array con solo la lista de nombres ', function () {
       model.addGroup("Grupo 1");
       model.addGroup("Grupo 2");
       model.addGroup("Grupo 3");
@@ -257,7 +257,7 @@ describe("model", function () {
   });
 
   describe("createGroupId y getGroupIdList", function () {
-    it("getGroupIdList  retorna una lista con todos los ids de los grupos", function () {
+    xit("getGroupIdList  retorna una lista con todos los ids de los grupos", function () {
       expect(model.createGroupId()).toEqual("group_0");
     });
   });

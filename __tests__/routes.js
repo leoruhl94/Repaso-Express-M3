@@ -47,7 +47,7 @@ describe("Routes", function () {
   });
 
   describe("/contacts", function () {
-    it("GET responde con un array vacío de entrada", function () {
+    xit("GET responde con un array vacío de entrada", function () {
       return supertest
         .get("/contacts")
         .expect(200)
@@ -57,7 +57,7 @@ describe("Routes", function () {
         });
     });
 
-    it("GET responde con un array con los contactos agregados", function () {
+    xit("GET responde con un array con los contactos agregados", function () {
       model.addContact("alessia", 3514545454);
       model.addContact("angelo", 1231231234);
       model.addContact("gabriel", 3515666222);
@@ -75,7 +75,7 @@ describe("Routes", function () {
         });
     });
 
-    it("GET puede recibir un status", function () {
+    xit("GET puede recibir un status", function () {
       model.addContact("alessia", 3514545454);
       model.addContact("angelo", 1231231234);
       model.addContact("gabriel", 3515666222);
@@ -93,7 +93,7 @@ describe("Routes", function () {
         });
     });
 
-    it("GET puede recibir un status", function () {
+    xit("GET puede recibir un status", function () {
       model.addContact("alessia", 3514545454);
       model.addContact("barbara", 3544466777);
       model.addContact("gabriel", 3515666222);
@@ -110,7 +110,7 @@ describe("Routes", function () {
   });
 
   describe("/contact", function () {
-    it("POST agrega un nuevo contacto y devuelve el contacto agregado", function () {
+    xit("POST agrega un nuevo contacto y devuelve el contacto agregado", function () {
       return supertest
         .post("/contact")
         .send(contactToSend.alessia)
@@ -121,7 +121,7 @@ describe("Routes", function () {
         });
     });
 
-    it("POST devuelve un mensaje de error si no recibe nombre y telefono valido", function () {
+    xit("POST devuelve un mensaje de error si no recibe nombre y telefono valido", function () {
       return supertest
         .post("/contact")
         .send({ userName: undefined })
@@ -134,7 +134,7 @@ describe("Routes", function () {
         });
     });
 
-    it("POST devuelve un mensaje de error si el nombre no es tipo string", function () {
+    xit("POST devuelve un mensaje de error si el nombre no es tipo string", function () {
       return supertest
         .post("/contact")
         .send({ userName: true, userTelephone: 3513513512 })
@@ -147,7 +147,7 @@ describe("Routes", function () {
         });
     });
 
-    it("POST devuelve un mensaje de error si el telefono no es tipo number", function () {
+    xit("POST devuelve un mensaje de error si el telefono no es tipo number", function () {
       return supertest
         .post("/contact")
         .send({ userName: "badPhone", userTelephone: "3513513512" })
@@ -163,7 +163,7 @@ describe("Routes", function () {
   });
 
   describe("/groups", function () {
-    it("GET responde con un objeto vacío de entrada", function () {
+    xit("GET responde con un objeto vacío de entrada", function () {
       return supertest
         .get("/groups")
         .expect(200)
