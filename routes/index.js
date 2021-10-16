@@ -29,18 +29,18 @@ router.get("/contacts/:name", (req, res) => {
 
 // name y telephone son obligatorios
 router.post("/contact", (req, res) => {
-  const { userName, userTelephone } = req.body;
-  if (!userTelephone || !userName) {
+  const { contactName, telephone } = req.body;
+  if (!telephone || !contactName) {
     return res
       .status(400)
       .json({ message: "nombre y telefono son requeridos" });
   }
-  if (typeof userName !== "string") {
+  if (typeof contactName !== "string") {
     return res
       .status(400)
       .json({ message: "El nombre debe ser de tipo string" });
   }
-  if (typeof userTelephone !== "number") {
+  if (typeof telephone !== "number") {
     return res
       .status(400)
       .json({
@@ -48,8 +48,8 @@ router.post("/contact", (req, res) => {
           "El telefono debe tener al menos un numero y der de tipo number",
       });
   }
-  const user = addUser(userName, userTelephone);
-  return res.status(201).json(user);
+  const newContact = addContact(contactName, telephone);
+  return res.status(201).json(newContact);
 });
 
 //_________________Groups__________________
@@ -75,10 +75,10 @@ router.get("/messages/:tel", (req, res) => {
 
 router.post("/message", (req, res) => {
   const { telephone, message } = req.body;
-  const userMessage = addMessage(telephone, message);
-  if (userMessage === "No existe el usuario")
+  const newMessage = addMessage(telephone, message);
+  if (newMessage === "No existe el usuario")
     return res.json({ message: "El usuario no existe" }).status(404);
-  if (userMessage) return res.json(userMessage);
+  if (newMessage) return res.json(newMessage);
   return res.json({ message: "El mensaje es incorrecto" }).status(400);
 });
 
