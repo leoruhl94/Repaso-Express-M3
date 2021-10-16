@@ -8,49 +8,49 @@ describe("model", function () {
 
   //__________________ section users_____________________
 
-  describe("contactList y addUser", function () {
+  describe("contactList y addContact", function () {
     it("Inicialmente, `contactList` devuelve un array de contactos vacío", function () {
       expect(model.contactList()).toEqual([]);
     });
 
-    it("`addUser` debe agendar los contactos con nombre y telefono", function () {
-      model.addUser("angelo", 1231231234);
+    it("`addContact` debe agendar los contactos con nombre y telefono", function () {
+      model.addContact("angelo", 1231231234);
       expect(model.contactList()).toHaveLength(1);
-      model.addUser("antonella", 1112345678);
+      model.addContact("antonella", 1112345678);
       expect(model.contactList()).toHaveLength(2);
       expect(model.contactList()[1].name).toEqual("antonella");
       expect(model.contactList()[1].telephone).toEqual(1112345678);
     });
 
     it("cada contacto debe tener inicialmente una propiedad `message` y debe ser un array vacio", function () {
-      model.addUser("angelo", 1231231234);
+      model.addContact("angelo", 1231231234);
       expect(model.contactList()[0].message).toEqual([]);
     });
 
     it("ademas debe tener una propiedad status con el valor `active` por defecto", function () {
-      model.addUser("angelo", 1231231234);
+      model.addContact("angelo", 1231231234);
       expect(model.contactList()[0].status).toEqual("active");
     });
 
-    it("Si `addUser` recibe un numero que ya esta agendado retorna el contacto existente", function () {
-      model.addUser("angelo", 1231231234);
-      expect(model.addUser("antonella", 1231231234).name).toEqual("angelo");
+    it("Si `addContact` recibe un numero que ya esta agendado retorna el contacto existente", function () {
+      model.addContact("angelo", 1231231234);
+      expect(model.addContact("antonella", 1231231234).name).toEqual("angelo");
       expect(model.contactList()[0].name).toEqual("angelo");
     });
 
     it("Si `contactList` recibe un status retorna la lista filtrada (active)", function () {
-      model.addUser("alessia", 3514545454);
-      model.addUser("barbara", 3544466777);
-      model.addUser("gabriel", 3515666222);
+      model.addContact("alessia", 3514545454);
+      model.addContact("barbara", 3544466777);
+      model.addContact("gabriel", 3515666222);
       model.changeStatus(3544466777, "blocked");
       expect(model.contactList("active")).toHaveLength(2);
       expect(model.contactList("active")[1].name).toEqual("gabriel");
     });
 
     it("Si contactList recibe un status retorna la lista filtrada (blocked)", function () {
-      model.addUser("alessia", 3514545454);
-      model.addUser("barbara", 3544466777);
-      model.addUser("gabriel", 3515666222);
+      model.addContact("alessia", 3514545454);
+      model.addContact("barbara", 3544466777);
+      model.addContact("gabriel", 3515666222);
       model.changeStatus(3544466777, "blocked");
       model.changeStatus(3514545454, "blocked");
       expect(model.contactList("blocked")).toHaveLength(2);
@@ -58,11 +58,11 @@ describe("model", function () {
     });
   });
 
-  describe("`searchUser` y `changeStatus`", function () {
+  describe("`searchContact` y `changeStatus`", function () {
     it("changeStatus cambia el status de un contacto", function () {
-      model.addUser("alessia", 3514545454);
-      model.addUser("barbara", 3544466777);
-      model.addUser("gabriel", 3515666222);
+      model.addContact("alessia", 3514545454);
+      model.addContact("barbara", 3544466777);
+      model.addContact("gabriel", 3515666222);
       model.changeStatus(3544466777, "blocked");
       model.changeStatus(3515666222, "blocked");
       expect(model.contactList()[0].status).toEqual("active");
@@ -72,97 +72,97 @@ describe("model", function () {
       expect(model.contactList()[2].status).toEqual("active");
     });
 
-    it("searchUser recibe un nombre devuelve una lista con todos los contactos que lo contengan", function () {
-      model.addUser("alessia", 1231231234);
-      model.addUser("angelo", 1231231235);
-      model.addUser("gabriel", 1231231236);
-      model.addUser("angelo", 1231231237);
-      model.addUser("angelo", 1231231238);
-      expect(model.searchUser("angelo")).toHaveLength(3);
-      expect(model.searchUser("angelo")[2].telephone).toEqual(1231231238);
+    it("searchContact recibe un nombre devuelve una lista con todos los contactos que lo contengan", function () {
+      model.addContact("alessia", 1231231234);
+      model.addContact("angelo", 1231231235);
+      model.addContact("gabriel", 1231231236);
+      model.addContact("angelo", 1231231237);
+      model.addContact("angelo", 1231231238);
+      expect(model.searchContact("angelo")).toHaveLength(3);
+      expect(model.searchContact("angelo")[2].telephone).toEqual(1231231238);
     });
 
-    it("si searchUser recibe una fraccion del nombre devuelve una lista con todos los contactos que la incluyen", function () {
-      model.addUser("alessia", 1231231234);
-      model.addUser("amaranto", 1231231235);
-      model.addUser("antonella", 1231231236);
-      model.addUser("antony", 1231231237);
-      model.addUser("gabriel", 1231231238);
-      model.addUser("santos", 1231231227);
-      model.addUser("angelo", 1231231278);
-      expect(model.searchUser("anto")).toHaveLength(4);
-      expect(model.searchUser("anto")[0].name).toEqual("amaranto");
-      expect(model.searchUser("anto")[2].name).toEqual("antony");
+    it("si searchContact recibe una fraccion del nombre devuelve una lista con todos los contactos que la incluyen", function () {
+      model.addContact("alessia", 1231231234);
+      model.addContact("amaranto", 1231231235);
+      model.addContact("antonella", 1231231236);
+      model.addContact("antony", 1231231237);
+      model.addContact("gabriel", 1231231238);
+      model.addContact("santos", 1231231227);
+      model.addContact("angelo", 1231231278);
+      expect(model.searchContact("anto")).toHaveLength(4);
+      expect(model.searchContact("anto")[0].name).toEqual("amaranto");
+      expect(model.searchContact("anto")[2].name).toEqual("antony");
     });
 
-    it("searchUser encuentra el nombre sin importar si esta en mayusculas o minusculas", function () {
-      model.addUser("Alessia", 1231231234);
-      model.addUser("AmaRanTo", 1231231235);
-      model.addUser("Antonella", 1231231236);
-      model.addUser("anTOny", 1231231237);
-      model.addUser("gabriel", 1231231238);
-      model.addUser("Santos", 1231231227);
-      model.addUser("angelo", 1231231278);
-      expect(model.searchUser("Anto")).toHaveLength(4);
-      expect(model.searchUser("AnTo")[0].name).toEqual("AmaRanTo");
-      expect(model.searchUser("aNTo")[2].name).toEqual("anTOny");
+    it("searchContact encuentra el nombre sin importar si esta en mayusculas o minusculas", function () {
+      model.addContact("Alessia", 1231231234);
+      model.addContact("AmaRanTo", 1231231235);
+      model.addContact("Antonella", 1231231236);
+      model.addContact("anTOny", 1231231237);
+      model.addContact("gabriel", 1231231238);
+      model.addContact("Santos", 1231231227);
+      model.addContact("angelo", 1231231278);
+      expect(model.searchContact("Anto")).toHaveLength(4);
+      expect(model.searchContact("AnTo")[0].name).toEqual("AmaRanTo");
+      expect(model.searchContact("aNTo")[2].name).toEqual("anTOny");
     });
 
-    it("si searchUser tambien un status devuelve solo los contactos que lo tengan", function () {
-      model.addUser("alessia", 1231231234);
-      model.addUser("amaranto", 1231231235);
-      model.addUser("antonella", 1231231236);
-      model.addUser("antony", 1231231237);
-      model.addUser("gabriel", 1231231238);
-      model.addUser("santos", 1231231227);
-      model.addUser("angelo", 1231231278);
+    it("si searchContact tambien un status devuelve solo los contactos que lo tengan", function () {
+      model.addContact("alessia", 1231231234);
+      model.addContact("amaranto", 1231231235);
+      model.addContact("antonella", 1231231236);
+      model.addContact("antony", 1231231237);
+      model.addContact("gabriel", 1231231238);
+      model.addContact("santos", 1231231227);
+      model.addContact("angelo", 1231231278);
       model.changeStatus(1231231237, "blocked");
       model.changeStatus(1231231235, "blocked");
-      expect(model.searchUser("anto", "blocked")).toHaveLength(2);
-      expect(model.searchUser("anto", "active")).toHaveLength(2);
-      expect(model.searchUser("anto", "blocked")[0].name).toEqual("amaranto");
-      expect(model.searchUser("anto", "active")[1].name).toEqual("santos");
+      expect(model.searchContact("anto", "blocked")).toHaveLength(2);
+      expect(model.searchContact("anto", "active")).toHaveLength(2);
+      expect(model.searchContact("anto", "blocked")[0].name).toEqual("amaranto");
+      expect(model.searchContact("anto", "active")[1].name).toEqual("santos");
     });
   });
 
-  describe("`deleteUser` y `editUser`", function () {
-    it("deleteUser recibe un numero de telefono y elimina el contacto", function () {
-      model.addUser("alessia", 3514545454);
-      model.addUser("barbara", 3544466777);
-      model.addUser("gabriel", 3515666222);
+  describe("`deleteContact` y `editContact`", function () {
+    it("deleteContact recibe un numero de telefono y elimina el contacto", function () {
+      model.addContact("alessia", 3514545454);
+      model.addContact("barbara", 3544466777);
+      model.addContact("gabriel", 3515666222);
       expect(model.contactList()).toHaveLength(3);
-      model.deleteUser(3544466777);
+      model.deleteContact(3544466777);
       expect(model.contactList()).toHaveLength(2);
-      model.deleteUser(3515666222);
+      model.deleteContact(3515666222);
       expect(model.contactList()).toHaveLength(1);
-      model.deleteUser(3514545454);
+      model.deleteContact(3514545454);
       expect(model.contactList()).toHaveLength(0);
     });
 
-    it("deleteUser retorna el contacto que se va a eliminar", function () {
-      model.addUser("alessia", 3514545454);
-      model.addUser("barbara", 3544466777);
-      model.addUser("gabriel", 3515666222);
-      expect(model.deleteUser(3544466777).name).toEqual("barbara");
-      expect(model.deleteUser(3514545454).name).toEqual("alessia");
-      expect(model.deleteUser(3515666222).name).toEqual("gabriel");
+    it("deleteContact retorna el contacto que se va a eliminar", function () {
+      model.addContact("alessia", 3514545454);
+      model.addContact("barbara", 3544466777);
+      model.addContact("gabriel", 3515666222);
+      expect(model.deleteContact(3544466777).name).toEqual("barbara");
+      expect(model.deleteContact(3514545454).name).toEqual("alessia");
+      expect(model.deleteContact(3515666222).name).toEqual("gabriel");
     });
 
-    it("si deleteUser no encuentra el contacto a borrar retorna false", function () {
-      expect(model.deleteUser(3544466777)).toBe(false);
+    it("si deleteContact no encuentra el contacto a borrar retorna false", function () {
+      expect(model.deleteContact(3544466777)).toBe(false);
     });
 
-    it("editUser si no recibe el numero o no existe el contacto retorna false", function () {
-      expect(model.editUser({})).toBe(false);
-      expect(model.editUser({ phone: 3515151511 })).toBe(false);
+    it("editContact si no recibe el numero o no existe el contacto retorna false", function () {
+      expect(model.editContact({})).toBe(false);
+      expect(model.editContact({ phone: 3515151511 })).toBe(false);
     });
 
-    it("editUser debe retornar el usuario correctamente editado", function () {
-      model.addUser("alessia", 1231231234);
-      model.addUser("amaranto", 1231231235);
-      model.addUser("antonella", 1231231236);
+    it("editContact debe retornar el usuario correctamente editado", function () {
+      model.addContact("alessia", 1231231234);
+      model.addContact("amaranto", 1231231235);
+      model.addContact("antonella", 1231231236);
       expect(
-        model.editUser({
+        model.editContact({
           phone: 1231231235,
           name: "barbara",
           status: "blocked",
@@ -176,15 +176,15 @@ describe("model", function () {
       expect(model.contactList("active")[1].name).toEqual("antonella");
     });
 
-    it("editUser solo modifica la propiedad que se le pasa", function () {
-      model.addUser("alessia", 1231231234);
-      model.addUser("amaranto", 1231231235);
-      model.addUser("antonella", 1231231236);
+    it("editContact solo modifica la propiedad que se le pasa", function () {
+      model.addContact("alessia", 1231231234);
+      model.addContact("amaranto", 1231231235);
+      model.addContact("antonella", 1231231236);
       expect(
-        model.editUser({ phone: 1231231234, name: "barbara" }).status
+        model.editContact({ phone: 1231231234, name: "barbara" }).status
       ).toEqual("active");
       expect(
-        model.editUser({ phone: 1231231236, status: "blocked" }).name
+        model.editContact({ phone: 1231231236, status: "blocked" }).name
       ).toEqual("antonella");
       expect(model.contactList("blocked")[0].name).toEqual("antonella");
     });
