@@ -120,9 +120,7 @@ describe("model", function () {
       model.changeStatus(1231231235, "blocked");
       expect(model.searchContact("anto", "blocked")).toHaveLength(2);
       expect(model.searchContact("anto", "active")).toHaveLength(2);
-      expect(model.searchContact("anto", "blocked")[0].name).toEqual(
-        "amaranto"
-      );
+      expect(model.searchContact("anto", "blocked")[0].name).toEqual("amaranto");
       expect(model.searchContact("anto", "active")[1].name).toEqual("santos");
     });
   });
