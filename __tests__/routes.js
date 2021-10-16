@@ -58,9 +58,9 @@ describe("Routes", function () {
     });
 
     it("GET responde con un array con los contactos agregados", function () {
-      model.addUser("alessia", 3514545454);
-      model.addUser("angelo", 1231231234);
-      model.addUser("gabriel", 3515666222);
+      model.addContact("alessia", 3514545454);
+      model.addContact("angelo", 1231231234);
+      model.addContact("gabriel", 3515666222);
       return supertest
         .get("/contacts")
         .expect(200)
@@ -76,9 +76,9 @@ describe("Routes", function () {
     });
 
     it("GET puede recibir un status", function () {
-      model.addUser("alessia", 3514545454);
-      model.addUser("angelo", 1231231234);
-      model.addUser("gabriel", 3515666222);
+      model.addContact("alessia", 3514545454);
+      model.addContact("angelo", 1231231234);
+      model.addContact("gabriel", 3515666222);
       model.changeStatus(1231231234, "blocked");
       return supertest
         .get("/contacts?status=active")
@@ -94,9 +94,9 @@ describe("Routes", function () {
     });
 
     it("GET puede recibir un status", function () {
-      model.addUser("alessia", 3514545454);
-      model.addUser("barbara", 3544466777);
-      model.addUser("gabriel", 3515666222);
+      model.addContact("alessia", 3514545454);
+      model.addContact("barbara", 3544466777);
+      model.addContact("gabriel", 3515666222);
       model.changeStatus(3544466777, "blocked");
       return supertest
         .get("/contacts?status=blocked")
